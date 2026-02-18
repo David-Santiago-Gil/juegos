@@ -1,0 +1,46 @@
+<footer class="footer">
+  <div class="container-fluid">
+    <div class="footer-content">
+      
+      <!-- Sección de Redes Sociales -->
+      <div class="social-section">
+        <div class="social-icons">
+          <button 
+            *ngFor="let social of socialLinks"
+            class="social-button"
+            (click)="openSocialLink(social.url)"
+            [attr.aria-label]="social.label"
+            [title]="social.label">
+            <i [class]="'bi ' + social.icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Separador vertical (solo desktop) -->
+      <div class="footer-divider"></div>
+
+      <!-- Navegación del Footer -->
+      <nav class="footer-nav">
+        <ul class="footer-nav-list">
+          <li class="footer-nav-item" *ngFor="let link of footerNavLinks; let last = last">
+            <a 
+              [routerLink]="link.route" 
+              routerLinkActive="active"
+              class="footer-nav-link">
+              {{ link.label }}
+            </a>
+            <span class="nav-separator" *ngIf="!last">|</span>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Copyright (opcional) -->
+      <div class="copyright">
+        <p class="copyright-text">
+          © {{ currentYear }} Call of Duty Mobile. Todos los derechos reservados.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</footer>

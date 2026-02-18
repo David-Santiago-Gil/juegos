@@ -1,0 +1,66 @@
+<div class="service-container">
+  <h1 class="page-title">SERVICIO AL CLIENTE</h1>
+
+  <p class="intro-text">
+    ¿Tienes dudas sobre los torneos, las reglas o tu cuenta? Nuestro equipo está listo para ayudarte.<br>
+    Elige el medio que prefieras para contactarnos:
+  </p>
+
+  <div class="form-container">
+    <form class="contact-form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="NOMBRE"
+          [(ngModel)]="formData.nombre"
+          name="nombre"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <input
+          type="email"
+          class="form-input"
+          placeholder="CORREO"
+          [(ngModel)]="formData.correo"
+          name="correo"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <input
+          type="tel"
+          class="form-input"
+          placeholder="TELEFONO"
+          [(ngModel)]="formData.telefono"
+          name="telefono"
+          required
+        >
+      </div>
+
+      <button type="submit" class="submit-button">ENVIAR</button>
+    </form>
+
+    <div class="help-section">
+      <h3 class="help-title">¿En qué podemos ayudarte?</h3>
+
+      <ul class="help-list">
+        <li>
+          <strong>Reporte de Fallos:</strong> Si tuviste problemas técnicos en una partida.
+        </li>
+        <li>
+          <strong>Aclaración de Reglas:</strong> Dudas sobre el armamento prohibido en <strong>Darklink</strong>.
+        </li>
+        <li>
+          <strong>Inscripciones:</strong> Soporte para el registro en nuestros próximos eventos.
+        </li>
+        <li>
+          <strong>Apelaciones:</strong> Revisión de sanciones o malentendidos en competencia.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

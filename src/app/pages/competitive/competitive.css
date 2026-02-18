@@ -1,0 +1,152 @@
+.competitive-container {
+  padding: 40px 20px;
+  background-color: #1a1a1a;
+  min-height: calc(100vh - 200px);
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.tournaments-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.tournament-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.tournament-card:hover {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tournament-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.tournament-name {
+  font-family: 'Impact', sans-serif;
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.tournament-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tournament-details li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.tournament-details strong {
+  color: #ffffff;
+}
+
+.rules-section {
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 30px;
+  border-radius: 8px;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+.section-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+.rules-content {
+  color: #e0e0e0;
+}
+
+.rules-subtitle {
+  font-size: 1rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.rules-category {
+  margin-bottom: 25px;
+}
+
+.rules-category h4 {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.rules-category p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.rules-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.rules-category ul li {
+  padding-left: 15px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.rules-category ul li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #888;
+}
+
+@media (max-width: 1200px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .rules-section {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+}

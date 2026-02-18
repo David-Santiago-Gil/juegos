@@ -1,0 +1,138 @@
+.strimers-container {
+  padding: 40px 20px;
+  background-color: #1a1a1a;
+  min-height: calc(100vh - 200px);
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.streamers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.streamer-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.streamer-card:hover {
+  transform: translateX(10px);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.streamer-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.streamer-info {
+  color: #ffffff;
+}
+
+.streamer-name {
+  font-family: 'Impact', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.streamer-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.streamer-details li {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.streamer-details strong {
+  color: #ffffff;
+}
+
+.logos-section {
+  position: sticky;
+  top: 100px;
+  text-align: center;
+}
+
+.logos-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 3rem;
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  margin-bottom: 40px;
+}
+
+.platform-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.platform-logo {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.platform-logo:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 1200px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .logos-section {
+    position: relative;
+    top: 0;
+  }
+
+  .platform-logos {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .streamer-card {
+    grid-template-columns: 1fr;
+  }
+
+  .streamer-image {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .logos-title {
+    font-size: 2.5rem;
+  }
+
+  .platform-logo {
+    max-width: 150px;
+  }
+}

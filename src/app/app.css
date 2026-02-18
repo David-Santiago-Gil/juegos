@@ -1,0 +1,20 @@
+/* Contenedor principal de la aplicación */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Área de contenido principal */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #0d1117;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+}

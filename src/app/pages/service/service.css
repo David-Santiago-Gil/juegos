@@ -1,0 +1,131 @@
+.service-container {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #1a1a1a;
+  min-height: calc(100vh - 200px);
+}
+
+.page-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  margin-bottom: 30px;
+}
+
+.intro-text {
+  text-align: center;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 50px;
+}
+
+.form-container {
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.contact-form {
+  margin-bottom: 50px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: 'Impact', sans-serif;
+  letter-spacing: 0.05em;
+  transition: border-color 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.submit-button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 15px 60px;
+  background-color: #1a3a5c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Impact', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #2a4a6c;
+}
+
+.help-section {
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  padding-top: 30px;
+}
+
+.help-title {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.help-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.help-list li {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.help-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #888;
+  font-size: 1.5rem;
+}
+
+.help-list strong {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .form-container {
+    padding: 30px 20px;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+  }
+}
