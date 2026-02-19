@@ -99,60 +99,115 @@
   <!-- Modal Auth (Login/Registro) -->
   <div class="login-modal-backdrop" *ngIf="showAuthModal" (click)="closeAuth()"></div>
   <div class="login-modal" *ngIf="showAuthModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-    <div class="login-modal-header">
-      <h3 id="authTitle">{{ authMode === 'login' ? 'Iniciar sesión' : 'Registrarse' }}</h3>
-      <button class="login-close" (click)="closeAuth()" aria-label="Cerrar">&times;</button>
-    </div>
+    <button class="login-close" (click)="closeAuth()" aria-label="Cerrar">&times;</button>
 
-    <div class="auth-tabs">
-      <button
-        class="auth-tab"
-        [class.active]="authMode === 'login'"
-        (click)="switchAuthMode('login')">Iniciar sesión</button>
-      <button
-        class="auth-tab"
-        [class.active]="authMode === 'register'"
-        (click)="switchAuthMode('register')">Registrarse</button>
-    </div>
-
-    <form class="login-form" *ngIf="authMode === 'login'" (ngSubmit)="login()">
-      <label class="login-label">
-        Correo electrónico
-        <input type="email" [(ngModel)]="loginForm.email" name="loginEmail" required placeholder="tucorreo@ejemplo.com" (ngModelChange)="loginErrors.email=''; loginErrors.general=''" />
-        <div class="error-text" *ngIf="loginErrors.email">{{ loginErrors.email }}</div>
-      </label>
-      <label class="login-label">
-        Contraseña
-        <input type="password" [(ngModel)]="loginForm.password" name="loginPassword" required placeholder="********" (ngModelChange)="loginErrors.password=''; loginErrors.general=''" />
-        <div class="error-text" *ngIf="loginErrors.password">{{ loginErrors.password }}</div>
-      </label>
-      <div class="error-text" *ngIf="loginErrors.general">{{ loginErrors.general }}</div>
-      <div class="login-actions">
-        <button type="button" class="btn-secondary" (click)="closeAuth()">Cancelar</button>
-        <button type="submit" class="btn-primary" [disabled]="loginErrors.email || loginErrors.password">Entrar</button>
+    <div class="auth-container">
+      <div class="auth-tabs-wrapper">
+        <button
+          class="auth-tab"
+          [class.active]="authMode === 'login'"
+          (click)="switchAuthMode('login')"
+          [attr.aria-selected]="authMode === 'login'">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Iniciar sesión</span>
+        </button>
+        <button
+          class="auth-tab"
+          [class.active]="authMode === 'register'"
+          (click)="switchAuthMode('register')"
+          [attr.aria-selected]="authMode === 'register'">
+          <i class="bi bi-person-plus"></i>
+          <span>Registrarse</span>
+        </button>
+        <div class="auth-tab-indicator"></div>
       </div>
-    </form>
 
-    <form class="login-form" *ngIf="authMode === 'register'" (ngSubmit)="register()">
-      <label class="login-label">
-        Nombre completo
-        <input type="text" [(ngModel)]="registerForm.name" name="registerName" required placeholder="Tu nombre" (ngModelChange)="registerErrors.name=''" />
-        <div class="error-text" *ngIf="registerErrors.name">{{ registerErrors.name }}</div>
-      </label>
-      <label class="login-label">
-        Correo electrónico
-        <input type="email" [(ngModel)]="registerForm.email" name="registerEmail" required placeholder="tucorreo@ejemplo.com" (ngModelChange)="registerErrors.email=''" />
-        <div class="error-text" *ngIf="registerErrors.email">{{ registerErrors.email }}</div>
-      </label>
-      <label class="login-label">
-        Contraseña
-        <input type="password" [(ngModel)]="registerForm.password" name="registerPassword" required placeholder="Mín. 6 caracteres" (ngModelChange)="registerErrors.password=''" />
-        <div class="error-text" *ngIf="registerErrors.password">{{ registerErrors.password }}</div>
-      </label>
-      <div class="login-actions">
-        <button type="button" class="btn-secondary" (click)="closeAuth()">Cancelar</button>
-        <button type="submit" class="btn-primary" [disabled]="registerErrors.name || registerErrors.email || registerErrors.password">Crear cuenta</button>
+      <div class="auth-content">
+        <form class="login-form" *ngIf="authMode === 'login'" (ngSubmit)="login()">
+          <h3 id="authTitle" class="auth-title">Bienvenido de vuelta</h3>
+          <p class="auth-subtitle">Ingresa con tu cuenta para continuar</p>
+
+          <div class="form-group">
+            <label class="login-label">
+              <span class="label-text">Correo electrónico</span>
+              <div class="input-wrapper">
+                <i class="bi bi-envelope"></i>
+                <input type="email" [(ngModel)]="loginForm.email" name="loginEmail" required placeholder="tu@correo.com" (ngModelChange)="loginErrors.email=''; loginErrors.general=''" />
+              </div>
+              <div class="error-text" *ngIf="loginErrors.email">{{ loginErrors.email }}</div>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="login-label">
+              <span class="label-text">Contraseña</span>
+              <div class="input-wrapper">
+                <i class="bi bi-lock"></i>
+                <input type="password" [(ngModel)]="loginForm.password" name="loginPassword" required placeholder="••••••••" (ngModelChange)="loginErrors.password=''; loginErrors.general=''" />
+              </div>
+              <div class="error-text" *ngIf="loginErrors.password">{{ loginErrors.password }}</div>
+            </label>
+          </div>
+
+          <div class="error-text general-error" *ngIf="loginErrors.general">{{ loginErrors.general }}</div>
+
+          <button type="submit" class="btn-primary btn-full" [disabled]="loginErrors.email || loginErrors.password">
+            <span>Entrar a mi cuenta</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+
+          <button type="button" class="btn-secondary btn-full" (click)="closeAuth()">
+            Cancelar
+          </button>
+        </form>
+
+        <form class="login-form" *ngIf="authMode === 'register'" (ngSubmit)="register()">
+          <h3 id="authTitle" class="auth-title">Crea tu cuenta</h3>
+          <p class="auth-subtitle">Únete a nuestra comunidad de jugadores</p>
+
+          <div class="form-group">
+            <label class="login-label">
+              <span class="label-text">Nombre completo</span>
+              <div class="input-wrapper">
+                <i class="bi bi-person"></i>
+                <input type="text" [(ngModel)]="registerForm.name" name="registerName" required placeholder="Tu nombre" (ngModelChange)="registerErrors.name=''" />
+              </div>
+              <div class="error-text" *ngIf="registerErrors.name">{{ registerErrors.name }}</div>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="login-label">
+              <span class="label-text">Correo electrónico</span>
+              <div class="input-wrapper">
+                <i class="bi bi-envelope"></i>
+                <input type="email" [(ngModel)]="registerForm.email" name="registerEmail" required placeholder="tu@correo.com" (ngModelChange)="registerErrors.email=''" />
+              </div>
+              <div class="error-text" *ngIf="registerErrors.email">{{ registerErrors.email }}</div>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="login-label">
+              <span class="label-text">Contraseña</span>
+              <div class="input-wrapper">
+                <i class="bi bi-lock"></i>
+                <input type="password" [(ngModel)]="registerForm.password" name="registerPassword" required placeholder="Mín. 6 caracteres" (ngModelChange)="registerErrors.password=''" />
+              </div>
+              <div class="error-text" *ngIf="registerErrors.password">{{ registerErrors.password }}</div>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full" [disabled]="registerErrors.name || registerErrors.email || registerErrors.password">
+            <span>Crear mi cuenta</span>
+            <i class="bi bi-check-circle"></i>
+          </button>
+
+          <button type="button" class="btn-secondary btn-full" (click)="closeAuth()">
+            Cancelar
+          </button>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </header>
