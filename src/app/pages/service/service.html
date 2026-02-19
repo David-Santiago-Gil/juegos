@@ -10,12 +10,13 @@
     <form class="contact-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
         <input
+          #nombreInput
           type="text"
           class="form-input"
           placeholder="NOMBRE"
           [(ngModel)]="formData.nombre"
           name="nombre"
-          (ngModelChange)="validate()"
+          (keydown.enter)="correoInput.focus()"
           required
         >
         <div class="error-text" *ngIf="errors.nombre">{{ errors.nombre }}</div>
@@ -23,12 +24,13 @@
 
       <div class="form-group">
         <input
+          #correoInput
           type="email"
           class="form-input"
           placeholder="CORREO"
           [(ngModel)]="formData.correo"
           name="correo"
-          (ngModelChange)="validate()"
+          (keydown.enter)="telefonoInput.focus()"
           required
         >
         <div class="error-text" *ngIf="errors.correo">{{ errors.correo }}</div>
@@ -36,29 +38,31 @@
 
       <div class="form-group">
         <input
+          #telefonoInput
           type="tel"
           class="form-input"
           placeholder="TELEFONO"
           [(ngModel)]="formData.telefono"
           name="telefono"
+          (keydown.enter)="mensajeInput.focus()"
           required
         >
       </div>
 
       <div class="form-group">
         <textarea
+          #mensajeInput
           class="form-input"
           placeholder="MENSAJE"
           rows="5"
           [(ngModel)]="formData.mensaje"
           name="mensaje"
-          (ngModelChange)="validate()"
           required
         ></textarea>
         <div class="error-text" *ngIf="errors.mensaje">{{ errors.mensaje }}</div>
       </div>
 
-      <button type="submit" class="submit-button" [disabled]="hasErrors()">ENVIAR</button>
+      <button type="submit" class="submit-button">ENVIAR</button>
     </form>
 
     <div class="help-section">
