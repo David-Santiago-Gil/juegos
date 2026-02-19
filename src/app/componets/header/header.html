@@ -38,17 +38,41 @@
       <!-- Contenedor Búsqueda + Usuario -->
       <div class="search-user-container">
         <div class="search-container">
-          <i class="bi bi-search search-icon"></i>
+          <i class="bi bi-search search-icon" (click)="onSearchSubmit()"></i>
           <input
             type="text"
             class="search-input"
             placeholder="Buscar"
-            (input)="onSearch($event)">
+            [value]="searchQuery"
+            (input)="onSearchInput($event)"
+            (keyup.enter)="onSearchSubmit()">
         </div>
         <div class="user-container">
-          <button class="user-button" aria-label="User profile">
-            <i class="bi bi-person-circle"></i>
-          </button>
+          <!-- Estado no autenticado: botón Acceder -->
+          <ng-container *ngIf="!isAuthenticated; else profileBlock">
+            <button class="access-button" (click)="openAuth()">Acceder</button>
+          </ng-container>
+          <!-- Estado autenticado: avatar con menú perfil -->
+          <ng-template #profileBlock>
+            <div class="avatar-wrapper" (click)="toggleProfileMenu()" tabindex="0" role="button" aria-haspopup="menu">
+              <div class="avatar-circle" *ngIf="!currentAvatar">{{ initials }}</div>
+              <img *ngIf="currentAvatar" [src]="currentAvatar" alt="Avatar" class="avatar-image" />
+            </div>
+            <div class="profile-menu" *ngIf="showProfileMenu">
+              <div class="profile-header">
+                <div class="avatar-small" *ngIf="!currentAvatar">{{ initials }}</div>
+                <img *ngIf="currentAvatar" [src]="currentAvatar" alt="Avatar" class="avatar-small-image" />
+                <div class="profile-info">
+                  <div class="profile-name">{{ username }}</div>
+                  <div class="profile-email">{{ currentEmail }}</div>
+                </div>
+              </div>
+              <button class="profile-action" (click)="fileInput.click()">Cambiar foto de perfil</button>
+              <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)" />
+              <button class="profile-action" (click)="changeAccount()">Cambiar de cuenta</button>
+              <button class="profile-action danger" (click)="logout()">Cerrar sesión</button>
+            </div>
+          </ng-template>
         </div>
       </div>
 
@@ -70,5 +94,65 @@
         </li>
       </ul>
     </nav>
+  </div>
+
+  <!-- Modal Auth (Login/Registro) -->
+  <div class="login-modal-backdrop" *ngIf="showAuthModal" (click)="closeAuth()"></div>
+  <div class="login-modal" *ngIf="showAuthModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="login-modal-header">
+      <h3 id="authTitle">{{ authMode === 'login' ? 'Iniciar sesión' : 'Registrarse' }}</h3>
+      <button class="login-close" (click)="closeAuth()" aria-label="Cerrar">&times;</button>
+    </div>
+
+    <div class="auth-tabs">
+      <button
+        class="auth-tab"
+        [class.active]="authMode === 'login'"
+        (click)="switchAuthMode('login')">Iniciar sesión</button>
+      <button
+        class="auth-tab"
+        [class.active]="authMode === 'register'"
+        (click)="switchAuthMode('register')">Registrarse</button>
+    </div>
+
+    <form class="login-form" *ngIf="authMode === 'login'" (ngSubmit)="login()">
+      <label class="login-label">
+        Correo electrónico
+        <input type="email" [(ngModel)]="loginForm.email" name="loginEmail" required placeholder="tucorreo@ejemplo.com" (ngModelChange)="loginErrors.email=''; loginErrors.general=''" />
+        <div class="error-text" *ngIf="loginErrors.email">{{ loginErrors.email }}</div>
+      </label>
+      <label class="login-label">
+        Contraseña
+        <input type="password" [(ngModel)]="loginForm.password" name="loginPassword" required placeholder="********" (ngModelChange)="loginErrors.password=''; loginErrors.general=''" />
+        <div class="error-text" *ngIf="loginErrors.password">{{ loginErrors.password }}</div>
+      </label>
+      <div class="error-text" *ngIf="loginErrors.general">{{ loginErrors.general }}</div>
+      <div class="login-actions">
+        <button type="button" class="btn-secondary" (click)="closeAuth()">Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="loginErrors.email || loginErrors.password">Entrar</button>
+      </div>
+    </form>
+
+    <form class="login-form" *ngIf="authMode === 'register'" (ngSubmit)="register()">
+      <label class="login-label">
+        Nombre completo
+        <input type="text" [(ngModel)]="registerForm.name" name="registerName" required placeholder="Tu nombre" (ngModelChange)="registerErrors.name=''" />
+        <div class="error-text" *ngIf="registerErrors.name">{{ registerErrors.name }}</div>
+      </label>
+      <label class="login-label">
+        Correo electrónico
+        <input type="email" [(ngModel)]="registerForm.email" name="registerEmail" required placeholder="tucorreo@ejemplo.com" (ngModelChange)="registerErrors.email=''" />
+        <div class="error-text" *ngIf="registerErrors.email">{{ registerErrors.email }}</div>
+      </label>
+      <label class="login-label">
+        Contraseña
+        <input type="password" [(ngModel)]="registerForm.password" name="registerPassword" required placeholder="Mín. 6 caracteres" (ngModelChange)="registerErrors.password=''" />
+        <div class="error-text" *ngIf="registerErrors.password">{{ registerErrors.password }}</div>
+      </label>
+      <div class="login-actions">
+        <button type="button" class="btn-secondary" (click)="closeAuth()">Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="registerErrors.name || registerErrors.email || registerErrors.password">Crear cuenta</button>
+      </div>
+    </form>
   </div>
 </header>

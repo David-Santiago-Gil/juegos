@@ -7,7 +7,7 @@
   </p>
 
   <div class="form-container">
-    <form class="contact-form" (ngSubmit)="onSubmit()">
+    <form class="contact-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
         <input
           type="text"
@@ -15,8 +15,10 @@
           placeholder="NOMBRE"
           [(ngModel)]="formData.nombre"
           name="nombre"
+          (ngModelChange)="validate()"
           required
         >
+        <div class="error-text" *ngIf="errors.nombre">{{ errors.nombre }}</div>
       </div>
 
       <div class="form-group">
@@ -26,8 +28,10 @@
           placeholder="CORREO"
           [(ngModel)]="formData.correo"
           name="correo"
+          (ngModelChange)="validate()"
           required
         >
+        <div class="error-text" *ngIf="errors.correo">{{ errors.correo }}</div>
       </div>
 
       <div class="form-group">
@@ -41,7 +45,20 @@
         >
       </div>
 
-      <button type="submit" class="submit-button">ENVIAR</button>
+      <div class="form-group">
+        <textarea
+          class="form-input"
+          placeholder="MENSAJE"
+          rows="5"
+          [(ngModel)]="formData.mensaje"
+          name="mensaje"
+          (ngModelChange)="validate()"
+          required
+        ></textarea>
+        <div class="error-text" *ngIf="errors.mensaje">{{ errors.mensaje }}</div>
+      </div>
+
+      <button type="submit" class="submit-button" [disabled]="hasErrors()">ENVIAR</button>
     </form>
 
     <div class="help-section">

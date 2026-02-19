@@ -37,6 +37,17 @@
   margin-bottom: 25px;
 }
 
+.error-text {
+  margin-top: 6px;
+  color: #f87171; /* rojo suave */
+  font-size: 0.85rem;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .form-input {
   width: 100%;
   padding: 15px 20px;
