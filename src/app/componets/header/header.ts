@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Cuentas } from '../../services/cuentas';
 
 interface StoredUser {
   email: string;
@@ -18,6 +19,8 @@ interface StoredUser {
   styleUrls: ['./header.css']
 })
 export class HeaderComponent implements OnInit {
+  private cuentasService = inject(Cuentas);
+  
   // Control del menú hamburguesa en móvil
   isMenuOpen: boolean = false;
 
@@ -57,6 +60,9 @@ export class HeaderComponent implements OnInit {
   // Búsqueda
   searchQuery: string = '';
 
+  // Carrito
+  carrito = this.cuentasService.getCarrito();
+
   // Rutas de navegación
   navLinks = [
     { label: 'INICIO', route: '/inicio' },
@@ -64,13 +70,24 @@ export class HeaderComponent implements OnInit {
     { label: 'STREAMERS', route: '/strimers' },
     { label: 'TORNEOS Y COMPE', route: '/competitive' },
     { label: 'SERVICIO AL CLIENTE', route: '/servicio' },
-    { label: 'TÉRMINOS Y CONDICIONES', route: '/terminos' }
+    { label: 'TÉRMINOS Y CONDICIONES', route: '/terminos' },
+    { label: 'VENTA DE CUENTAS', route: '/ventas' }
   ];
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.restoreSession();
+    this.addEscapeKeyListener();
+  }
+
+  private addEscapeKeyListener(): void {
+    if (typeof document === 'undefined') return;
+    document.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && this.isMenuOpen) {
+        this.closeMenu();
+      }
+    });
   }
 
   // =========================
@@ -155,6 +172,7 @@ export class HeaderComponent implements OnInit {
 
   private getUsersStore(): Record<string, StoredUser> {
     try {
+      if (typeof localStorage === 'undefined') return {};
       return JSON.parse(localStorage.getItem('auth.users') || '{}');
     } catch {
       return {};
@@ -162,14 +180,17 @@ export class HeaderComponent implements OnInit {
   }
 
   private setUsersStore(store: Record<string, StoredUser>): void {
+    if (typeof localStorage === 'undefined') return;
     localStorage.setItem('auth.users', JSON.stringify(store));
   }
 
   private setCurrentUser(email: string): void {
+    if (typeof localStorage === 'undefined') return;
     localStorage.setItem('auth.current', email);
   }
 
   private getCurrentUser(): string | null {
+    if (typeof localStorage === 'undefined') return null;
     return localStorage.getItem('auth.current');
   }
 
@@ -313,6 +334,10 @@ export class HeaderComponent implements OnInit {
   }
 
   private restoreSession(): void {
+    if (typeof localStorage === 'undefined') {
+      this.isAuthenticated = false;
+      return;
+    }
     const email = this.getCurrentUser();
     if (!email) {
       this.isAuthenticated = false;
@@ -349,5 +374,9 @@ export class HeaderComponent implements OnInit {
 
   toggleProfileMenu(): void {
     this.showProfileMenu = !this.showProfileMenu;
+  }
+
+  getCantidadCarrito(): number {
+    return this.cuentasService.getCantidadCarrito();
   }
 }

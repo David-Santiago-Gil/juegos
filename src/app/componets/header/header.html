@@ -35,7 +35,7 @@
         </ul>
       </nav>
 
-      <!-- Contenedor Búsqueda + Usuario -->
+      <!-- Contenedor Búsqueda + Usuario + Carrito -->
       <div class="search-user-container">
         <div class="search-container">
           <i class="bi bi-search search-icon" (click)="onSearchSubmit()"></i>
@@ -47,6 +47,13 @@
             (input)="onSearchInput($event)"
             (keyup.enter)="onSearchSubmit()">
         </div>
+        
+        <!-- Carrito -->
+        <a routerLink="/ventas" class="carrito-link" title="Ir al carrito">
+          <i class="bi bi-bag-check"></i>
+          <span class="carrito-count" *ngIf="getCantidadCarrito() > 0">{{ getCantidadCarrito() }}</span>
+        </a>
+        
         <div class="user-container">
           <!-- Estado no autenticado: botón Acceder -->
           <ng-container *ngIf="!isAuthenticated; else profileBlock">

@@ -5,6 +5,7 @@ import { Competitive } from './pages/competitive/competitive';
 import { Service } from './pages/service/service';
 import { Strimers } from './pages/strimers/strimers';
 import { Terms } from './pages/terms/terms';
+import { Sale } from './pages/sale/sale';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
   { path: 'competitive', component: Competitive },
   { path: 'servicio', component: Service },
   { path: 'terminos', component: Terms },
+  { path: 'ventas', component: Sale },
   { path: '**', redirectTo: 'inicio' }
 ];

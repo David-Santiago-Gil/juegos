@@ -1,0 +1,92 @@
+<div class="sale-container">
+  <div class="sale-content">
+    <!-- Sección de Productos -->
+    <section class="productos-section">
+      <h1>Venta de Cuentas Premium</h1>
+      <p class="subtitle">Encuentra las mejores cuentas de juegos con descuentos especiales</p>
+
+      <div class="productos-grid">
+        @for (cuenta of cuentas; track cuenta.id) {
+          <div class="producto-card">
+            <div class="producto-imagenes">
+              @if (cuenta.imagen1) {
+                <img src="{{ cuenta.imagen1 }}" alt="{{ cuenta.nombre }}" class="imagen-principal" />
+              } @else {
+                <div class="imagen-placeholder">Imagen 1</div>
+              }
+            </div>
+
+            <div class="producto-info">
+              <h2>{{ cuenta.nombre }}</h2>
+              <p class="descripcion">{{ cuenta.descripcion }}</p>
+              <div class="precio-section">
+                <span class="precio">${{ cuenta.precio }}</span>
+              </div>
+
+              <div class="cantidad-selector">
+                <label for="cantidad-{{ cuenta.id }}">Cantidad:</label>
+                <input
+                  type="number"
+                  id="cantidad-{{ cuenta.id }}"
+                  [(ngModel)]="cantidadSeleccionada[cuenta.id]"
+                  min="1"
+                  max="10"
+                  class="cantidad-input"
+                />
+              </div>
+
+              <button (click)="addToCarrito(cuenta)" class="btn-agregar">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+
+  <!-- Sección de Carrito Lateral -->
+  <aside class="carrito-section">
+    <h2>Carrito de Compras</h2>
+    <div class="carrito-container">
+      @if (carrito().length > 0) {
+        <div class="carrito-items">
+          @for (item of carrito(); track item.id) {
+            <div class="carrito-item">
+              <div class="item-info">
+                <h4>{{ item.nombre }}</h4>
+                <span class="item-cantidad">{{ item.cantidad }}x</span>
+              </div>
+              <div class="item-precio">${{ (item.precio * item.cantidad).toFixed(2) }}</div>
+              <div class="item-controls">
+                <input
+                  type="number"
+                  [(ngModel)]="item.cantidad"
+                  (change)="updateQuantity(item.id, item.cantidad)"
+                  min="1"
+                  class="item-cantidad-input"
+                />
+                <button (click)="removeFromCarrito(item.id)" class="btn-eliminar">✕</button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="carrito-resumen">
+          <div class="resumen-row">
+            <span>Subtotal:</span>
+            <span>${{ getTotalCarrito().toFixed(2) }}</span>
+          </div>
+          <div class="resumen-row total">
+            <span>Total:</span>
+            <span>${{ getTotalCarrito().toFixed(2) }}</span>
+          </div>
+          <button (click)="procederACompra()" class="btn-comprar">Proceder al Pago</button>
+          <button (click)="clearCarrito()" class="btn-limpiar">Vaciar Carrito</button>
+        </div>
+      } @else {
+        <p class="carrito-vacio">El carrito está vacío</p>
+      }
+    </div>
+  </aside>
+</div>

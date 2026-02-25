@@ -4,7 +4,7 @@
   
   <!-- Main Content Area - Aquí se cargan las páginas según la ruta -->
   <main class="main-content">
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onRouteActivate($event)"></router-outlet>
   </main>
   
   <!-- Footer Component -->
